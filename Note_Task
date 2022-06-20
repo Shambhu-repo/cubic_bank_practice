@@ -1,0 +1,158 @@
+Designing : click on button and display page in edit mode
+Add new mapping(myProfile)  in CustomerUIController 
+if user is logged in ->proceed
+get data from customer_tbl 
+set the CustomerVO is request/Model
+rander html (?????)
+else --> go to login page 
+COntroller : CustomerUIController
+Get mapping - myProfile
+1st task
+
+VO : CustomerVO
+Service :
+Repository : MagicCustomerRepository /CustomerRepository
+Entity : Customer.java
+DB table customer_tbl
+ HTML:dashboard.html
+ <a th:href="@{/customer/myprofile}"> My Profile
+  <button type="button" class="btn btn-primary">My Profile</button>
+  </a>
+Development 
+Unit testing 
+//
+
+
+2nd: task
+add new post mapping(myProfile) in customerUIControlleer
+if useer is looged in -> proceed
+
+
+Add new POST mapping(myProfile)  in CustomerUIController 
+if user is logged in ->proceed
+Pick customer VO 
+Add new method in service
+copy vo into entity
+inside service need to call repository.save() 
+Add success message in model 
+go back on myparofile.html and display message
+
+
+3rd task :
+want to see security question and answer in myprofile page on my account page
+
+how to implement:
+
+Html : myProfile.html
+controller :  update getmapping(customer/profile)
+dto     : CsutoemrVo
+service
+repository  : customerQuestionAnswerRepository
+Entity  : customer_question_answer tbl
+DB Table  customer_answer_Question tbl
+
+
+taks: Answer should be updated : Done
+
+
+
+
+task-3
+from Arti Bajpai to everyone:    10:47 AM
+HTML : myProfile.html
+CONTROLLER : update @GetMapping("/customer/myProfile")
+DTO :CustomerVO
+SERVICE
+REPOSITORY : CustomerQuestionsAnsRepository
+Entity : CustomerQuestionAnswer
+DB TABLE : customer_question_answer_tbl
+HTML : .html
+CONTROLLER : update @GetMapping("/customer/myProfile")
+DTO : List of SecurityQuestionsVO
+SERVICE SecurityQuestionServiceImpl
+REPOSITORY : SecurityQuestionsRepository
+Entity : SecurityQuestions
+DB TABLE : customer_security_questions_tbl
+
+
+
+Task -4
+Add create account link on employee dashboard 
+On click of create account, display list of customers who doesn't have account created 
+CutomerId /Name/Email/Address/Mobile/Link create Account
+Designing
+Controller : New get mapping ->/customer/CreateAccount  EmployeeUIController.java
+HTML : createAccount.html ->replica of CustomerEnquiryList.html
+
+
+VO : CustomerVO
+Service : Create new CustomerAccountServiceImpl AND CustomerAccountService
+Logic : List of CustomerVO
+public List<CustomerVO> getCustomersForAccountCreation() {
+        List<CustomerVO> customerVOs = new ArrayList<CustomerVO>();
+        //list of customers who doesn't have account created 
+        //get all available customers in customer_tbl ->FindAll
+        //iterate through list 
+        //for each customer query account table ->if account present don't add else add this in customerVOs list 
+        return customerVOs;
+    }
+REPOSITORY -CustomerAccountRepository
+Entity CustomerAccountInfo
+DB TABLE : customer_account_information_tbl  /cus
+
+
+Task 5;
+from Arti Bajpai to everyone:    10:39 AM
+Amount Transfer 
+1- Manage Payee
+2- Transfer
+I need a Link on customer dashboard 
+On click of that link new page shud open 
+Add new Link "Add Payee" in dashboard.html
+HTML : addPayee.html
+CONTROLLER : Add new mapping (customer/addPayee) in CustomerUIController.java
+SERVICE :CustomerAccountServiceImpl -> add new method checkCustomerAccount
+REPOSITORY -CustomerAccountRepository
+Entity CustomerAccountInfo
+DB :customer_account_information_tbl
+
+For save payee work on design 
+DB :payee_informations_tbl
+
+
+
+task 6 4/9/2021
+For save payee work on design 
+CONTROLLER
+VO -> 
+SERVICE  PayeInfoService/PayeInfoServiceImpl   ( String   savePayee(PayeeInfoVO);
+copy VO in entity 
+add doe and dom 
+repository.save()
+REPOSITORY  PayeeInfoRepository.java ---CREATE 
+Entity : PayeeInfo.java
+DB :payee_informations_tbl
+
+need to save data in database which data user enters
+
+
+Task 8th   4/13/2021
+Transfer Amount 100
+tester - sender (Debitor)
+Arti - Receiver (Creditor)
+amount >0
+Sender is having valid account or not ? 
+check sender's available balanace is more than transfer amount 
+Check receiver is present in my payee list ?
+Payee's account is valid or not ?
+Reduce sender's amount  -100
+Increase receiver's amount +100 
+Registaer the transaction in transaction table for future tracking 
+Track transaction 
+customer_transaction_tbl
+int id
+debitorAccountNumber
+creditorAccountNumber
+Amount
+Remakrs
+Doe

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>addPayee.html</title>
+
+</head>
+<body>
+<header style="height: 30px;background-color: maroon;color:white;">
+  Hello Mr. <span th:utext="${session.userSessionVO.username}" th:unless="${session == null}" style="font-weight: bold;"></span>
+</header>
+  
+<div class="container">
+  <h2>ADD PAYEE
+  </h2>
+  <header th:include="customer/header.html"></header>
+  <img th:src="@{/images/customer-en.png}" alt="Logo" style="height: 120px"/>
+  
+  
+  <!-- <div style="width: 70%">
+     <span th:utext="${message}"  style="font-weight: bold; color:blue"></span> -->   <!--  to print the message for creating account-->
+  
+  
+      <form th:action="@{/customer/addPayee}"  method="POST" >  
+   
+ 	
+    <div class="form-group">
+      <label>Payee Account No.:</label>
+      <input type="number" style="width: 60%;" class="form-control" name="payeeAccountNo" placeholder="Account Number">
+    </div>
+  
+    <div class="form-group">
+      <label>Payee Name:</label>
+      <input type="text" class="form-control" name="payeeName" placeholder="Name">
+    </div>
+    <div class="form-group">
+      <label>Payee Nick Name:</label>
+      <input type="text" style="width: 60%;"  class="form-control" name="payeeNickName"  placeholder= "Nick Name">
+    </div>
+    
+     <div class="form-group">
+      <label>Remarks :</label>
+      <input type="text" style="width: 60%;"  class="form-control"  name="*{remarks}"  placeholder="Remarks">
+    </div>
+    
+    
+    
+     <button type="submit" class="btn btn-success">Submit</button>  
+      
+   
+    
+  </form>
+  </div>
+</div>
+<footer  class="ffooter">
+</footer>
+
+</body>
+</html>

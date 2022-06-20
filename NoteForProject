@@ -1,0 +1,18 @@
+To start the application : go to Banking-web -> com.rab3tech-> springbootRunner.java class 
+ To get login page :    http://localhost:999/customer/login
+
+
+customer email: sumedhya@gmail.com
+password: sumedhya
+
+
+employee:javatech1000@gmail.com 
+password: India@123
+
+Recording link for Junit projects nagendra sir : https://drive.google.com/drive/folders/1XH3vnHteWUgcC3JxN3frRlDSimiSnhoj
+Recording Link for Spring Security and JWT : https://drive.google.com/drive/folders/1fZQkm6pYnrcqdfW8usLcFl7LiRqJm1mK
+Git hub link for nagendra sir :- https://rodhan.my.webex.com/rodhan.my-en/url.php?gourl=https%3a%2f%2fgithub%2ecom%2fJavaHunk2020%2fcubic%2dbank%2fcommits%2ffeature%2fKoak%2d234
+
+Modal.BootStrap :- this is used to make client side pop up and many more - need to go through this document
+
+git link for webservice recording : https://drive.google.com/drive/folders/1Zt8nL0eLBfEOGcy3H2fKXRe7fn4bVGty

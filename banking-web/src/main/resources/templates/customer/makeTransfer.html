@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>makeTransfer.html</title>
+
+<script type="text/javascript">
+	
+	function transferForm(loginId){
+		fetch("http://localhost:999/v3/customer/transferApi/"+loginId) //get method
+
+
+	  .then(response=>response.json())
+	  .then(data=> {console.log(data);
+	  console.log(data[0].customerId);
+	  console.log(data[1].payeeAccountNo);
+
+
+			/* $("#Id").val(data.id);  
+             $("#amount").val(data.amount);
+	        $("#remarks").val(data.remarks);  */
+ 		      
+    
+      $("#customerId").val(data[0].customerId);  
+     $("#creditorAccountNumber1").val(data[0].payeeAccountNo);
+     
+     $("#modal_transferMoney_popup").modal("show");  //this is for  modal popup to transfer amount
+ });
+		  }  
+
+	  
+	function moneyTransfer(){     //post method
+			//var customerId = $("#customerId").val();
+			var inputVO={}; //textdata
+			
+			inputVO.creditorAccountNumber=$("#creditorAccountNumber1").val();
+			//inputVO.customerId= $("#customerId").val();
+            inputVO.amount=	  $("#amount").val();
+			inputVO.remarks=	  $("#remarks").val();
+			
+			var jsonData = JSON.stringify(inputVO); //converting javascript var into json format
+
+			
+			const input={
+					method:'POST',
+					body:jsonData,
+					headers:{
+						'Content-Type':'application/json',
+						'Accept':'application/json'
+	}
+			};
+
+			fetch("http://localhost:999/v3/customer/payee/transfer",input) // calling api passing body and json format
+			.then(response=>response.json())
+			.then(data=> {
+			console.log(data);
+			if(data.code===200){
+		 $("#information").html(data.message);
+		 $("#modal_transferMoney_popup").modal("hide");
+
+	 }
+	});
+		  
+	  }
+
+	
+	
+</script>
+
+
+</head>
+
+<body>
+	<header style="height: 30px; background-color: maroon; color: white;">
+		Hello Mr. <span th:utext="${session.userSessionVO.username}"
+			th:unless="${session == null}" style="font-weight: bold;"></span>
+	</header>
+
+
+
+	<div class="container">
+		<h3>Make Transfer</h3>
+		<header th:include="customer/header.html"></header>
+
+		
+
+		 <form action="#" method="post" th:action="@{/customer/makeTransfer}"> 
+
+			 <div class="form-group">
+				<label>Payee List:</label> <select style="width: 60%;"
+					class="form-control" name="creditorAccountNumber">
+                       <option th:each="payeeVO :${payees}"
+						th:value="${payeeVO.payeeAccountNo}"
+						th:text="${payeeVO.payeeName}"></option>
+				</select>
+			</div>
+ 
+			<div class="form-group">
+				<label>Amount:</label> <input type="number" style="width: 60%;"
+					class="form-control" name="amount" placeholder="Enter Amount.."
+					id="amount1"> <span id="amtErr1"
+					style="color: red; font-size: 18px; font-weight: bold;"></span>
+
+			</div>
+
+			<div class="form-group">
+				<label>Remarks:</label> <input type="text" style="width: 60%;"
+					class="form-control" name="remarks" placeholder="Remarks.."
+					id="remarks1"> <span id="remarkErr1"
+					style="color: red; font-size: 18px; font-weight: bold;"></span>
+
+			</div>
+
+			
+			<!-- <button type="button" onclick="validation()" class="btn btn-primary">Transfer</button> 
+			<button type="button" th:onclick="|transferForm('${session.userSessionVO.username}')|"
+								class="btn btn-success">API_Transfer</button>  
+			 -->			
+			<a th:onclick="|transferForm('${session.userSessionVO.username}')|"> <button type="button" class="btn btn-info"  >API_Transfer</button> </a> <!--  added for money transfer api-->
+			 <button type="submit" class="btn btn-primary">Transfer</button>   <!-- This is for controller --> 
+							
+							
+		</form>
+ 		
+		 </div> 
+		
+		<!-- Modal popup : Added for money transfer api -->
+			<div class="modal" tabindex="-1" id="modal_transferMoney_popup">
+				<!-- model id ; it is used in javascript -->
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Amount Transfer</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+        <span id="information" style="color: red; font-size: 18px; font-weight: bold;"></span> <!-- added to print message-->
+
+						<div class="modal-body">
+             <input type="hidden" name="customerId" id="customerId">
+ 						
+						
+			 <div class="form-group">
+				<label>Payee List:</label> <select style="width: 60%;"
+				 class="form-control" name="creditorAccountNumber" id="creditorAccountNumber1">
+                     <option th:each="payee :${payeeList}" 
+                     th:value="${payee.payeeAccountNo}" 
+                     th:text="${payee.payeeName}"></option>
+				</select>
+			</div>   
+			
+			
+			
+               <div class="form-group">
+				<label>Amount:</label> <input type="number" style="width: 60%;" class="form-control" name="amount" placeholder="Enter Amount" id="amount"> 
+				<span id="amtErr" style="color: red; font-size: 18px; font-weight: bold;"></span>
+                </div>
+
+			<div class="form-group">
+				<label>Remarks:</label> <input type="text" style="width: 60%;"
+					class="form-control" name="remarks" placeholder="Remarks"
+					id="remarks"> <span id="remarkErr"
+					style="color: red; font-size: 18px; font-weight: bold;"></span>
+
+			</div>
+			
+			
+</div>
+
+						<div class="modal-footer">
+							<button type="button" th:onclick="|moneyTransfer()|"
+								class="btn btn-primary">Save changes</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- modal ends here -->
+			
+						<!-- modal_2  starts here -->
+		<!-- 	
+			<div class="modal" tabindex="-1" id="modal_NullPayeelist_popup">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Transfer Amount</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>No payee. please add payee</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+		
+				<!-- modal-2 ends here -->
+		
+		
+				
+		
+
+	<footer class="ffooter"></footer>
+</body>
+</html>

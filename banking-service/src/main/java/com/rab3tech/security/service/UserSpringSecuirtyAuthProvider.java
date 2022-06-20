@@ -34,7 +34,7 @@ public class UserSpringSecuirtyAuthProvider implements UserDetailsService {
 	/**
 	 * Retrieves a user record containing the user's credentials and access. 
 	 */
-	public UserDetails loadUserByUsername(String username)
+	public UserDetails loadUserByUsername(String username)   // UserDetails is inbuilt class in springboot for security understood by myself
 			throws UsernameNotFoundException, DataAccessException {
 		// Declare a null Spring User
 		UserDetails user = null;
@@ -46,7 +46,7 @@ public class UserSpringSecuirtyAuthProvider implements UserDetailsService {
 				if(userSessionVO!=null && userSessionVO.getUsername()!=null) {
 					//this is code which  is connecting our code to the spring security code	
 						if(userSessionVO.getLocked()!=null && userSessionVO.getLocked().equalsIgnoreCase("yes")){
-							 user =  new User(username, userSessionVO.getPassword(),	true,true,true,false,
+							 user =  new User(username, userSessionVO.getPassword(),	true,true,true,false,         //User is inbuilt class in springBoot
 										getAuthorities(userSessionVO.getRoles()));
 						}else{
 							user =  new User(userSessionVO.getUsername(), userSessionVO.getPassword(),	true,true,true,true,

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="payee_informations_tbl")
 public class PayeeInfo implements Serializable{
+	
 	private int id;
 	private String payeeAccountNo;
 	private String payeeName;

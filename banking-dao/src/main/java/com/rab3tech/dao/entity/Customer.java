@@ -36,7 +36,7 @@ public class Customer {
 	private String jobTitle;
 	private String photoName;
 	private byte[] image;
-	private Login login;
+	private Login login;        // Foreign key
 	private Timestamp doe;
 	private Timestamp dom;
 	

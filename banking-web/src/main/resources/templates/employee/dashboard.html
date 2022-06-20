@@ -30,11 +30,16 @@
    
 </header>
 <div class="container">
-  <h2>Employee Dashboard Page
+  <h2>Employee Dashboard Page   dashboard.html
+  
   </h2>
    <a th:href="@{/customer/enquiries}"> 
   <button type="button" class="btn btn-primary">Customer Enquiry</button>
   </a>
+   <a th:href="@{/customer/createAccount}"> 
+  <button type="button" class="btn btn-primary">Customer Account</button>
+  </a>
+  
 <button type="button" class="btn btn-secondary">Lock/Unlock</button>
 <button type="button" class="btn btn-success">Customer Transaction</button>
 <button type="button" class="btn btn-danger">Check Book Request(s)</button>
@@ -42,10 +47,15 @@
   <img th:src="@{/images/customer_dashboard.jpg}" alt="page"/>
    <span th:utext="${error}" style="color: red;font-size: 18px;"></span>
   <div style="width: 70%">
+   <a Style th:href="@{/customer/logout}"> 
+<button type="button" class="btn btn-warning">Logout</button>
+</a>
+ 
   </div>
 </div>
 <footer  class="ffooter">
 </footer>
+  
 
 </body>
 </html>

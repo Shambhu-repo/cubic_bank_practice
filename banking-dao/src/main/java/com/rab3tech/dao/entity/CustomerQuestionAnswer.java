@@ -19,7 +19,7 @@ public class CustomerQuestionAnswer {
 	private int id;
 	private String question;
 	private String answer;
-	private Login login;
+	private Login login;       // Foreign key
 	private Timestamp doe;
 	private Timestamp dom;
 	

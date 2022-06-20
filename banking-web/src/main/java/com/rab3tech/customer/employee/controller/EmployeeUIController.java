@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.rab3tech.customer.service.CustomerAccountInfoService;
 import com.rab3tech.customer.service.impl.CustomerEnquiryService;
 import com.rab3tech.email.service.EmailService;
 import com.rab3tech.utils.BankHttpUtils;
 import com.rab3tech.vo.CustomerSavingVO;
+import com.rab3tech.vo.CustomerVO;
 import com.rab3tech.vo.EmailVO;
 
 @Controller
@@ -28,6 +30,12 @@ public class EmployeeUIController {
 	
 	@Autowired
 	private CustomerEnquiryService customerEnquiryService;
+	
+	
+	@Autowired
+	private CustomerAccountInfoService customerAccInfoService; // added for 4th task   
+	
+	
 	
 	
 	@Value("${customer.registration.url}")
@@ -58,5 +66,43 @@ public class EmployeeUIController {
 		emailService.sendRegistrationEmail(mail);
 		return "redirect:/customer/enquiries";
 	}
+	
+	
+	/* Shambhu    4/6/2021 */
+	
+	@GetMapping(value= {"/customer/createAccount"})  
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+	public String customerCreateAccount(Model model) {
+
+		List<CustomerVO> customers =customerAccInfoService.getCustomersForAccountCreation();
+	      model.addAttribute("customers", customers);
+
+		logger.info("customer/createAccount is called!!!");
+	
+		
+		return "employee/createAccount";	//createAccount.html
+	} 
+	
+	
+	/* Shambhu  */
+	@PostMapping(value= {"/customer/createAccount"})  
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+	public String createAccount(Model model, @RequestParam int customerId) {  // here we are requesting from html form : customerId so it will save
+		// that customer only which we want to save by clicking in customer Account link in customerAccount.html  
+		
+	   // customerAccInfoService.createAccount(customerId);
+	    
+	  customerAccInfoService.createAccount(customerId);
+
+	
+	    // String message= " Account is created ";
+	    
+	     model.addAttribute("message","Account is created");
+
+		
+		return "redirect:/customer/createAccount";	//createAccount.html
+	} 
+	
+	
 
 }

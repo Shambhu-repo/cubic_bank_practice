@@ -2,7 +2,7 @@ package com.rab3tech.service.exception;
 
 /**
  * 
- * @author nagendra
+ * 
  *
  */
 public class BankServiceException extends RuntimeException{

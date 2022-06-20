@@ -29,8 +29,8 @@ public class CustomerSaving {
 	private String mobile;
 	private String location;
 	private String ucrid;
-	private AccountType accType;
-	private AccountStatus status;
+	private AccountType accType;    // Foreign key
+	private AccountStatus status;  // foreign key
 	private Date doa;
 	private String appref;
 	

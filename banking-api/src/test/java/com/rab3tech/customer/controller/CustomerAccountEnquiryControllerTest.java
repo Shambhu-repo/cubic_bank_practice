@@ -47,6 +47,11 @@ public class CustomerAccountEnquiryControllerTest {
                 .build();
     }
 	
+//	@GetMapping("/customers/enquiry")
+//	public List<CustomerSavingVO> getAllEnquiry() {
+//		List<CustomerSavingVO>  responses=customerEnquiryService.findAll();
+//		return responses;
+//	}
 
 	@Test
 	public 	void testGetAllEnquiryWhenEnquiryNoEmpty() throws Exception {
@@ -69,6 +74,8 @@ public class CustomerAccountEnquiryControllerTest {
 		 verify(customerEnquiryService, times(1)).findAll();
 	     verifyNoMoreInteractions(customerEnquiryService);
 	}
+	
+	
 	
 	@Test
 	public 	void testGetAllEnquiryWhenEnquiryIsEmpty() throws Exception {
